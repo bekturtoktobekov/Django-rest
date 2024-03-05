@@ -11,6 +11,9 @@ def get_directors(request):
         data = serializer.DirectorSerializer(directors, many=True).data
         return Response(data=data)
     elif request.method == 'POST':
+        serializers = serializer.DirectorUpdateSerializer(data=request.data)
+        if not serializers.is_valid():
+            return Response(data={'errors': serializers.errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
         director = models.Director.objects.create(**request.data)
         return Response(data=serializer.DirectorSerializer(director).data,
                         status=status.HTTP_201_CREATED)
@@ -43,6 +46,9 @@ def get_movies(request):
         data = serializer.MovieSerializer(movies, many=True).data
         return Response(data=data)
     elif request.method == 'POST':
+        serializers = serializer.MovieSerializer(data=request.data)
+        if serializers.is_valid():
+            return Response(data={'errors': serializers.errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
         movie = models.Movie.objects.create(**request.data)
         return Response(data=serializer.MovieSerializer(movie))
 
@@ -78,6 +84,9 @@ def get_reviews(request):
         data = serializer.ReviewSerializer(reviews, many=True).data
         return Response(data=data)
     elif request.method == 'POST':
+        serializers = serializer.ReviewUpdateSerializer(data=request.data)
+        if not serializers.is_valid():
+            return Response(data={'errors': serializers.errors}, status=status.HTTP_406_NOT_ACCEPTABLE)
         review = models.Reviews.objects.create(**request.data)
         return Response(data=serializer.ReviewSerializer(review))
 
