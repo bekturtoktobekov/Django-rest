@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from movie_app import views
 
 urlpatterns = [
@@ -12,5 +12,6 @@ urlpatterns = [
     path('api/v1/reviews/<int:id>/', views.get_certain_review),
     path('api/v1/login/', views.authorization),
     path('api/v1/register/', views.register),
+    path('api/v1/cbv/', include('class_based_views.urls'))
 
 ]
