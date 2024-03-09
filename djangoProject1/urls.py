@@ -10,4 +10,7 @@ urlpatterns = [
     path('api/v1/movies/<int:id>/', views.get_certain_movie),
     path('api/v1/reviews/', views.get_reviews),
     path('api/v1/reviews/<int:id>/', views.get_certain_review),
+    path('api/v1/login/', views.authorization),
+    path('api/v1/register/', views.register),
+
 ]
